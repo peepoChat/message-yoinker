@@ -16,9 +16,8 @@ const optinons = {
   },
   channels: [process.env.CHANNEL],
 };
-let users = [];
 let bots = ["supibot", "pwgud", "streamelements", "nightbot"];
-let symbols = ["!", "$", "/"];
+let symbols = ["!", "$", "/", "="];
 
 const client = new tmi.client(optinons);
 client.connect();
@@ -34,13 +33,20 @@ client.on("chat", function (channel, username, message) {
       });
     }
   }
-  if (!users.includes(username.username) && !bots.includes(username.username)) {
-    users.push(username.username);
-    let userLog = username.username + "|";
-    fs.appendFile("users.txt", userLog, function (error) {
-      if (error) {
-        console.log(error);
-      }
-    });
-  }
+  fs.readFile("users.txt", "utf8", function (error, data) {
+    if (error) {
+      console.log(error);
+    }
+    if (
+      !data.includes(username.username) &&
+      !data.includes(username.username)
+    ) {
+      let userLog = username.username + "|\r\n";
+      fs.appendFile("users.txt", userLog, function (error) {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
+  });
 });
