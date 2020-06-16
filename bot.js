@@ -23,7 +23,7 @@ const client = new tmi.client(optinons);
 client.connect();
 
 client.on("chat", function (channel, username, message) {
-  if (!bots.includes(username.username)) {
+  if (!bots.includes(username.username) && !message.includes("https://")) {
     if (!symbols.includes(message.charAt(0))) {
       let messLog = message + "|\r\n";
       fs.appendFile("messages.txt", messLog, function (error) {
