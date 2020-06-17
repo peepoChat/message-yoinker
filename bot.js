@@ -39,7 +39,7 @@ client.on("chat", function (channel, username, message) {
     }
     if (
       !data.includes(username.username) &&
-      !data.includes(username.username)
+      !bots.includes(username.username)
     ) {
       let userLog = username.username + "|\r\n";
       fs.appendFile("users.txt", userLog, function (error) {
